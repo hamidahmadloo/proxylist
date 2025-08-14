@@ -1,205 +1,198 @@
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>دنیای بدون مرز تلگرام | لیست پروکسی</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>دنیای بدون مرز تلگرام | پروکسی‌یاب</title>
 
-  <!-- Font Awesome Free CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Font Awesome Free (برای آیکون‌ها) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" />
 
-  <!-- IRANSans CDN (نسخه وب فونت رایگان) -->
-  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/iransans@1.0.0/dist/font-face.css" rel="stylesheet" />
+<!-- IRANSans CDN یا محلی -->
+<style>
+@import url('https://cdn.jsdelivr.net/gh/rastikerdar/IRANSans@6.2.0/dist/font-face.css');
+body, button, input { font-family: 'IRANSans', sans-serif; }
+</style>
 
-  <!-- QRCode library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+:root {
+  --c1: #B1B2FF; --c2: #AAC4FF; --c3: #D2DAFF; --c4: #EEF1FF;
+  --text: #0f172a; --muted: #475569;
+  --btn-connect: #4f46e5; --btn-copy: #059669; --btn-qr: #0ea5e9;
+  --shadow: 0 10px 30px rgba(2,6,23,.12);
+}
+:root.theme-dark {
+  --c1: #404258; --c2: #474E68; --c3: #50577A; --c4: #6B728E;
+  --text: #f8fafc; --muted: #cbd5e1;
+  --btn-connect: #818cf8; --btn-copy: #34d399; --btn-qr: #38bdf8;
+  --shadow: 0 10px 30px rgba(15,23,42,.35);
+}
+body { margin:0; background: var(--c4); color: var(--text); }
+.container { max-width:1200px;margin:0 auto;padding:16px; }
+.header { display:flex; align-items:center; gap:12px; padding:12px; background:var(--c3); border-radius:12px; margin-bottom:12px; }
+.header .logo { width:36px; height:36px; border-radius:8px; background:#0088cc; display:grid; place-items:center; color:white; }
+.header .brand { font-weight:700; font-size:20px; display:flex; align-items:center; gap:8px; }
+.header .controls { margin-left:auto; display:flex; gap:8px; }
+.btn { padding:8px 12px; border:none; border-radius:12px; cursor:pointer; color:white; display:flex; align-items:center; gap:6px; font-family:IRANSans; }
+.btn-connect { background: var(--btn-connect); } .btn-copy { background: var(--btn-copy); } .btn-qr { background: var(--btn-qr); }
+.grid { display:grid; gap:16px; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); }
+.card { background: var(--c3); border-radius:16px; padding:16px; box-shadow:var(--shadow); display:grid; gap:8px; }
+.card-header { display:flex; gap:8px; align-items:center; }
+.badge { padding:4px 8px; border-radius:12px; background:var(--c2); font-size:12px; }
+.meta { font-size:14px; color:var(--muted); }
+.kvs { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); place-items:center; }
+.modal.show { display:grid; }
+.modal-card { background: var(--c4); color: var(--text); border-radius:16px; padding:16px; }
+.modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.qr-box { display:grid; place-items:center; padding:16px; border:1px dashed var(--c2); border-radius:12px; background: var(--c3); }
+.footer { text-align:center; margin-top:20px; color:var(--muted); }
+.footer a { color:var(--btn-qr); text-decoration:none; }
+</style>
 
-  <style>
-    :root {
-      --c1: #B1B2FF;
-      --c2: #AAC4FF;
-      --c3: #D2DAFF;
-      --c4: #EEF1FF;
-      --text: #0f172a;
-      --muted: #475569;
-      --btn-connect: #4f46e5;
-      --btn-copy: #059669;
-      --btn-qr: #0ea5e9;
-      --shadow: 0 10px 30px rgba(2,6,23,.12);
-    }
-    :root.theme-dark {
-      --c1: #404258;
-      --c2: #474E68;
-      --c3: #50577A;
-      --c4: #6B728E;
-      --text: #f8fafc;
-      --muted: #cbd5e1;
-      --btn-connect: #818cf8;
-      --btn-copy: #34d399;
-      --btn-qr: #38bdf8;
-      --shadow: 0 10px 30px rgba(15,23,42,.35);
-    }
-
-    body {
-      font-family: IRANSans, sans-serif;
-      background: var(--c4);
-      margin:0; padding:0; color: var(--text);
-    }
-    .header { padding: 16px; display:flex; align-items:center; gap:12px; background: var(--c3); position:sticky; top:0; z-index:50; }
-    .logo { width:40px;height:40px;background:#4f46e5;color:white;display:grid;place-items:center;border-radius:8px; }
-    .brand { font-weight:700;font-size:20px; display:flex; align-items:center; gap:10px; }
-    .btn { padding:8px 12px;border-radius:12px;border:none;cursor:pointer;font-family:IRANSans; }
-    .btn i { margin-left:6px; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; padding:16px; }
-    .card { background:var(--c3); border-radius:16px; padding:16px; box-shadow:var(--shadow); display:grid; gap:10px; }
-    .card-header { display:flex; justify-content:space-between; align-items:center; }
-    .badge { padding:4px 8px; border-radius:999px; background:var(--c2); font-size:12px; }
-    .kvs { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-    .actions { display:flex; gap:8px; flex-wrap:wrap; }
-    .btn-connect { background:var(--btn-connect); color:white; }
-    .btn-copy { background:var(--btn-copy); color:white; }
-    .btn-qr { background:var(--btn-qr); color:white; }
-    .modal { position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.5); }
-    .modal.show { display:grid; }
-    .modal-card { background:var(--c4); color:var(--text); padding:20px; border-radius:16px; }
-  </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
-
 <header class="header">
   <div class="logo"><i class="fab fa-telegram-plane"></i></div>
   <div class="brand">دنیای بدون مرز تلگرام</div>
-  <button id="themeToggle" class="btn"><i class="fa-solid fa-moon"></i> حالت شب/روز</button>
-  <button id="refreshBtn" class="btn"><i class="fa-solid fa-arrows-rotate"></i> بروزرسانی</button>
+  <div class="controls">
+    <button id="themeToggle" class="btn"><i class="fa-solid fa-moon"></i> حالت شب/روز</button>
+    <button id="refreshBtn" class="btn"><i class="fa-solid fa-arrows-rotate"></i> بروزرسانی</button>
+  </div>
 </header>
 
-<main>
-  <h2 style="padding:16px;">MTProto</h2>
-  <div class="grid" id="mtprotoGrid"></div>
-  <h2 style="padding:16px;">SOCKS5</h2>
-  <div class="grid" id="socksGrid"></div>
+<main class="container">
+  <h3>MTPROTO</h3>
+  <section id="mtprotoGrid" class="grid"></section>
+  <h3>SOCKS5</h3>
+  <section id="socksGrid" class="grid"></section>
 </main>
 
-<footer style="text-align:center;padding:20px;color:var(--muted)">
-  ارائه دهنده <a href="https://t.me/hamid_ahmadloo" target="_blank"><i class="fab fa-telegram"></i> @Hamid_Ahmadloo</a>
-</footer>
-
-<!-- QR Modal -->
 <div class="modal" id="qrModal">
   <div class="modal-card">
-    <button id="qrClose" class="btn" style="margin-bottom:10px;"><i class="fa-solid fa-xmark"></i> بستن</button>
-    <div id="qrBox"></div>
+    <div class="modal-header">
+      <strong>کیوآر اتصال</strong>
+      <button id="qrClose" class="btn"><i class="fa-solid fa-xmark"></i> بستن</button>
+    </div>
+    <div class="qr-box" id="qrBox"></div>
   </div>
 </div>
 
+<footer class="footer">
+  ارائه دهنده <a href="https://t.me/hamid_ahmadloo" target="_blank"><i class="fab fa-telegram"></i> @Hamid_Ahmadloo</a>
+</footer>
+
 <script>
+const API_BASE = 'http://localhost:3000/proxy';
+
 const mtGrid = document.getElementById('mtprotoGrid');
 const skGrid = document.getElementById('socksGrid');
-const qrModal = document.getElementById('qrModal');
-const qrBox = document.getElementById('qrBox');
-const qrClose = document.getElementById('qrClose');
-const themeToggle = document.getElementById('themeToggle');
-const refreshBtn = document.getElementById('refreshBtn');
 
-let qr;
-
-function wrap(url){ return `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`; }
-
-async function fetchProxies(type){
-  const url = wrap(`https://mtpro.xyz/api/?type=${type}`);
-  const res = await fetch(url);
+async function fetchJSON(type){
+  const res = await fetch(`${API_BASE}?type=${type}`);
   if(!res.ok) throw new Error(res.statusText);
   return res.json();
 }
 
 function countryFlag(code){
-  if(!code) return '🏳️';
-  const A=0x1F1E6;
-  return String.fromCodePoint(A+code.charCodeAt(0)-65, A+code.charCodeAt(1)-65);
-}
-
-function tgLinkMt(item){
-  const server = item.host.replace(/^https?:\/\//,'').replace(/\/$/,'');
-  return `tg://proxy?server=${encodeURIComponent(server)}&port=${encodeURIComponent(item.port)}&secret=${encodeURIComponent(item.secret)}`;
-}
-function tgLinkSocks(item){
-  return `tg://socks?server=${item.ip}&port=${item.port}`;
+  if(!code || code.length!==2) return '🏳️';
+  const A = 0x1F1E6;
+  const cc = code.toUpperCase();
+  return String.fromCodePoint(A + cc.charCodeAt(0), A + cc.charCodeAt(1));
 }
 
 function timeAgo(unix){
   if(!unix) return '—';
-  const secs = Math.max(0, Math.floor(Date.now()/1000) - unix);
-  const map = [['روز',86400],['ساعت',3600],['دقیقه',60]];
-  for(const [lbl,s] of map) if(secs>=s) return `${Math.floor(secs/s)} ${lbl} پیش`;
+  const secs = Math.max(0, Math.floor(Date.now()/1000) - Number(unix));
+  if(secs>86400) return `${Math.floor(secs/86400)} روز پیش`;
+  if(secs>3600) return `${Math.floor(secs/3600)} ساعت پیش`;
+  if(secs>60) return `${Math.floor(secs/60)} دقیقه پیش`;
   return 'چند لحظه پیش';
 }
 
-function buildCard(item,type){
-  const isMT = type==='mtproto';
-  const title = isMT ? item.host : item.ip;
+function buildCard(item, type){
+  const title = type==='mtproto'? item.host: item.ip;
   const port = item.port;
-  const link = isMT ? tgLinkMt(item) : tgLinkSocks(item);
-  const copyText = isMT ? `mtproto://${item.host}:${port}?secret=${item.secret}` : `socks5://${item.ip}:${port}`;
-
-  const card = document.createElement('div');
+  const country = item.country || '—';
+  const provider = item.provider || '—';
+  const ping = item.ping ?? '—';
+  const addTime = timeAgo(item.addTime);
+  const updateTime = timeAgo(item.updateTime);
+  const uptime = item.uptime ?? '—';
+  const link = type==='mtproto' 
+    ? `tg://proxy?server=${item.host}&port=${port}&secret=${item.secret}` 
+    : `tg://socks?server=${item.ip}&port=${port}`;
+  const copyText = type==='mtproto'
+    ? `mtproto://${item.host}:${port}?secret=${item.secret}`
+    : `socks5://${item.ip}:${port}`;
+  
+  const card = document.createElement('article');
   card.className='card';
   card.innerHTML=`
     <div class="card-header">
-      <span class="badge"><i class="fa-solid ${isMT?'fa-shield-halved':'fa-socks'}"></i> ${type.toUpperCase()}</span>
-      <strong>${title}:${port}</strong>
+      <span class="badge">${type.toUpperCase()}</span>
+      <strong>${title}</strong>:${port}
     </div>
-    <div class="kvs">
-      <div><i class="fa-solid fa-globe"></i> کشور: ${item.country || '—'} ${countryFlag(item.country)}</div>
-      <div><i class="fa-solid fa-building"></i> ارائه‌دهنده: ${item.provider||'—'}</div>
-      <div><i class="fa-solid fa-clock-rotate-left"></i> افزودن: ${timeAgo(item.addTime)}</div>
-      ${isMT?`<div><i class="fa-solid fa-chart-line"></i> آپتایم: ${item.uptime}%</div>`:''}
-      ${isMT?`<div><i class="fa-solid fa-rotate"></i> به‌روزرسانی: ${timeAgo(item.updateTime)}</div>`:''}
-      <div><i class="fa-solid fa-wave-square"></i> پینگ: ${item.ping??'—'}</div>
+    <div class="meta">
+      کشور: ${country} ${countryFlag(country)} | ارائه‌دهنده: ${provider} | پینگ: ${ping}ms
     </div>
-    <div class="actions">
-      <a class="btn btn-connect" href="${link}" target="_blank"><i class="fa-solid fa-plug"></i> اتصال</a>
+    <div class="meta">
+      افزودن: ${addTime} ${type==='mtproto'? '| آپ‌تایم: '+uptime+'% | بروزرسانی: '+updateTime : ''}
+    </div>
+    <div class="meta">
+      <button class="btn btn-connect" onclick="window.open('${link}','_blank')"><i class="fa-solid fa-plug"></i> اتصال</button>
       <button class="btn btn-copy" data-copy="${copyText}"><i class="fa-solid fa-copy"></i> کپی</button>
       <button class="btn btn-qr" data-qr="${link}"><i class="fa-solid fa-qrcode"></i> کیوآر</button>
     </div>
   `;
-  card.querySelector('.btn-copy').addEventListener('click',e=>{
-    navigator.clipboard.writeText(copyText);
-    e.currentTarget.innerHTML='<i class="fa-solid fa-check"></i> کپی شد';
-    setTimeout(()=>e.currentTarget.innerHTML='<i class="fa-solid fa-copy"></i> کپی',1500);
+  
+  // Copy
+  card.querySelector('.btn-copy').addEventListener('click', async e=>{
+    try{
+      await navigator.clipboard.writeText(e.currentTarget.dataset.copy);
+      e.currentTarget.innerText='کپی شد';
+      setTimeout(()=>{ e.currentTarget.innerHTML=`<i class="fa-solid fa-copy"></i> کپی`; },1500);
+    }catch{ alert('کپی ناموفق'); }
   });
-  card.querySelector('.btn-qr').addEventListener('click',e=>{
-    qrModal.classList.add('show');
-    qrBox.innerHTML='';
-    qr = new QRCode(qrBox,{text:link,width:240,height:240});
+
+  // QR
+  card.querySelector('.btn-qr').addEventListener('click', e=>{
+    openQR(e.currentTarget.dataset.qr);
   });
+
   return card;
 }
 
-qrClose.addEventListener('click',()=>{ qrModal.classList.remove('show'); qrBox.innerHTML=''; });
+const qrModal = document.getElementById('qrModal');
+const qrBox = document.getElementById('qrBox');
+document.getElementById('qrClose').addEventListener('click',()=>{ qrModal.classList.remove('show'); qrBox.innerHTML=''; });
 
+function openQR(text){
+  qrModal.classList.add('show'); qrBox.innerHTML=''; new QRCode(qrBox,{text,width:240,height:240});
+}
+
+// Theme toggle
+const themeToggle = document.getElementById('themeToggle');
 themeToggle.addEventListener('click',()=>{
   document.documentElement.classList.toggle('theme-dark');
 });
 
-refreshBtn.addEventListener('click',loadProxies);
+// Refresh
+document.getElementById('refreshBtn').addEventListener('click', init);
 
-async function loadProxies(){
-  mtGrid.innerHTML='در حال بارگذاری...';
-  skGrid.innerHTML='در حال بارگذاری...';
+async function init(){
   try{
-    const [mt,sk] = await Promise.all([fetchProxies('mtproto'),fetchProxies('socks')]);
+    const [mt, sk] = await Promise.all([fetchJSON('mtproto'), fetchJSON('socks')]);
     mtGrid.innerHTML=''; skGrid.innerHTML='';
-    mt.forEach(item=>mtGrid.appendChild(buildCard(item,'mtproto')));
-    sk.forEach(item=>skGrid.appendChild(buildCard(item,'socks')));
+    mt.forEach(item=> mtGrid.appendChild(buildCard(item,'mtproto')));
+    sk.forEach(item=> skGrid.appendChild(buildCard(item,'socks')));
   }catch(err){
-    mtGrid.innerHTML=`خطا: ${err.message}`;
-    skGrid.innerHTML=`خطا: ${err.message}`;
+    alert('خطا در دریافت اطلاعات: '+err.message);
   }
 }
 
-// initial load
-loadProxies();
+init();
 </script>
-
 </body>
 </html>
