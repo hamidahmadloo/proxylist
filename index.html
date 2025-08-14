@@ -5,8 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>دنیای بدون مرز تلگرام</title>
 
-<!-- Font -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/IRANSans@v5.0.0/dist/font-face.css">
+<!-- Font Vazir CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@latest/dist/font-face.css">
+
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <!-- Flag Icons CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
@@ -39,7 +42,7 @@
 }
 
 body {
-  font-family: 'IRANSans', sans-serif;
+  font-family: 'Vazir', sans-serif;
   margin:0;
   background: var(--day-bg);
   color: var(--text-day);
@@ -48,19 +51,35 @@ body.theme-dark {
   background: var(--night-bg);
   color: var(--text-night);
 }
-
-.btn-welcome {
-margin-top: 8px;
-    padding: 4px 10px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    background: #0088cc;
-    color: white;
-    font-weight: 600;
-    font-family: 'IRANSans';
+@media (max-width: 768px) {
+    .actions {
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }
 
+.actions {
+    display: flex
+;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.btn-welcome{
+font-size: 15px;
+    cursor: pointer;
+    border-radius: 6px;
+    border: none;
+    display: inline-flex
+;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Vazir', sans-serif;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    padding: 6px 12px;
+background: #0088cc;}
 /* Header */
 .header { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background: #0088cc; flex-wrap:wrap; color:white; }
 body.theme-dark .header { background: #223549; color:white; }
@@ -69,19 +88,10 @@ body.theme-dark .header { background: #223549; color:white; }
 .brand-main .logo { width:36px;height:36px;background:#00aaff;display:grid;place-items:center;color:white;border-radius:6px; }
 .brand-sub { font-size:14px; color:white; opacity:0.8; }
 
-/* دکمه حالت شب/روز */
-#themeToggle {
-  background: #00aaff;
-  color: #fff;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-body.theme-dark #themeToggle {
-  background: #3399ff;
-  color: #fff;
-}
+/* Buttons */
+#themeToggle, .btn {font-size: 15px; cursor:pointer; border-radius:6px; border:none; display:inline-flex; align-items:center; gap:4px; font-family:'Vazir',sans-serif; text-align:center; color:white; text-decoration:none; padding:6px 12px; }
+#themeToggle { background: #00aaff; }
+body.theme-dark #themeToggle { background: #3399ff; }
 
 /* Tabs */
 .tabs { display:flex; gap:12px; margin-top:10px; border-bottom:1px solid #ccc; flex-wrap:wrap; }
@@ -98,23 +108,16 @@ body.theme-dark .stat { background: var(--night-surface); }
 .grid { display:grid; gap:16px; margin-top:16px; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); }
 .card { border-radius:14px; background: var(--day-card); padding:12px; display:grid; gap:8px; }
 body.theme-dark .card { background: var(--night-card); }
-.card-header { display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:space-between; color:white; }
+.card-header {overflow: hidden; display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:space-between; color:white; }
 .badge { font-size:12px; padding:2px 6px; border-radius:8px; background:#0088cc; }
 body.theme-dark .badge { background:#444; color:#fff; }
 .kvs { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
 .kv { display:flex; align-items:center; gap:4px; padding:4px 6px; border-radius:6px; background: var(--day-surface); font-size:13px; flex-wrap:wrap; color:white; }
 body.theme-dark .kv { background: var(--night-surface); }
 
-/* Actions */
-.actions { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; }
-.actions .btn { height:36px; min-width: 70px; display: inline-flex; align-items: center; justify-content: center; text-decoration: none }
-
-/* Buttons */
-.btn { cursor:pointer; border-radius:6px; border:none; display:inline-flex; align-items:center; gap:4px; font-family:'IRANSans',sans-serif; text-align:center; color:white; text-decoration:none; }
-
 /* Pagination */
 .pagination { display:flex; justify-content:center; gap:8px; margin-top:16px; flex-wrap:wrap; }
-.page-btn { cursor:pointer; padding:6px 10px; border-radius:6px; display:inline-flex; align-items:center; gap:4px; color:white; font-family:'IRANSans',sans-serif; font-weight:600; }
+.page-btn { cursor:pointer; padding:6px 10px; border-radius:6px; display:inline-flex; align-items:center; gap:4px; color:white; font-family:'Vazir',sans-serif; font-weight:600; }
 .page-btn.day { background:#0088cc; }
 .page-btn.night { background:#3399ff; }
 .page-btn.active { border:2px solid #facc15; }
@@ -124,61 +127,18 @@ body.theme-dark .kv { background: var(--night-surface); }
 .footer a { color:inherit; text-decoration:none; display:inline-flex; align-items:center; gap:4px; }
 
 /* QR Modal */
-#qrModal {
-  position: fixed;
-  inset: 0;
-  display: none;
-  place-items: center;
-  background: rgba(0,0,0,0.5);
-  z-index: 999;
-}
-#qrModal .popupContent {
-  background: var(--day-card);
-  padding: 0;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  width: 220px;
-  height: 220px;
-}
-body.theme-dark #qrModal .popupContent {
-  background: var(--night-card);
-  color: var(--text-night);
-}
-#qrModal button {
-  margin-top: 8px;
-  padding: 4px 10px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  background: #0088cc;
-  color: white;
-  font-weight: 600;
-  font-family: 'IRANSans';
-}
+#qrModal { position: fixed; inset: 0; display: none; place-items: center; background: rgba(0,0,0,0.5); z-index: 999; }
+#qrModal .popupContent { background: var(--day-card); padding:0; border-radius:12px; display:grid; place-items:center; width:220px; height:220px; }
+body.theme-dark #qrModal .popupContent { background: var(--night-card); color: var(--text-night); }
+#qrModal button { margin-top:8px; padding:4px 10px; border:none; border-radius:6px; cursor:pointer; background:#0088cc; color:white; font-weight:600; font-family:'Vazir'; }
 
 /* Popups Welcome */
-#welcomePopup {
-  position:fixed; inset:0; display:grid; place-items:center; background:rgba(0,0,0,0.5); z-index:999;
-}
-#welcomePopup .popupContent {
-  background: var(--day-card);
-  padding:20px;
-  border-radius:12px;
-  text-align:center;
-  max-width:350px;
-  width:90%;
-}
-body.theme-dark #welcomePopup .popupContent {
-  background: var(--night-card);
-  color: var(--text-night);
-}
+#welcomePopup { position:fixed; inset:0; display:grid; place-items:center; background:rgba(0,0,0,0.5); z-index:999; }
+#welcomePopup .popupContent { background: var(--day-card); padding:20px; border-radius:12px; text-align:center; max-width:350px; width:90%; }
+body.theme-dark #welcomePopup .popupContent { background: var(--night-card); color: var(--text-night); }
 
-/* Responsive Actions */
-@media(max-width:768px){
-  .actions { flex-direction:row; justify-content:space-between; }
-  .actions .btn { flex:1; justify-content:center; }
-}
+/* Responsive */
+@media(max-width:768px){ .actions .btn { flex:1; justify-content:center; } }
 </style>
 </head>
 <body>
@@ -186,21 +146,19 @@ body.theme-dark #welcomePopup .popupContent {
 <header class="header">
   <div class="brand">
     <div class="brand-main">
-      <div class="logo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" style="width:28px;height:28px;">
-      </div>
+      <div class="logo"><i class="fab fa-telegram-plane fa-lg"></i></div>
       <div>
         دنیای بدون مرز تلگرام
         <div class="brand-sub">Published by Hamid Ahmadloo</div>
       </div>
     </div>
   </div>
-  <button id="themeToggle" class="btn">حالت شب/روز</button>
+  <button id="themeToggle"><i class="fas fa-adjust"></i> حالت شب/روز</button>
 </header>
 
 <div class="tabs">
-  <div class="tab active" data-tab="mtproto">MTProto</div>
-  <div class="tab" data-tab="socks">SOCKS5</div>
+  <div class="tab active" data-tab="mtproto"><i class="fas fa-shield-alt"></i> MTProto</div>
+  <div class="tab" data-tab="socks"><i class="fas fa-network-wired"></i> SOCKS5</div>
 </div>
 
 <div class="stats" id="tabStats"></div>
@@ -208,26 +166,27 @@ body.theme-dark #welcomePopup .popupContent {
 <div class="pagination" id="pagination"></div>
 
 <footer class="footer">
-   <a href="https://mtpro.xyz/" target="_blank">Proxy Monitoring</a> Powered by
+  <a href="https://mtpro.xyz/" target="_blank"><i class="fas fa-link"></i> Proxy Monitoring</a> Powered by
 </footer>
 
 <div id="welcomePopup">
   <div class="popupContent">
-    <h2>خوش آمدید!</h2>
+    <h2><i class="fas fa-hand-wave"></i> خوش آمدید!</h2>
     <p>به دنیای بدون مرز تلگرام خوش آمدید. تمام پروکسی‌ها را مشاهده و استفاده کنید.</p>
-    <button class="btn-welcome" onclick="closeWelcome()">ادامه</button>
+    <button class="btn-welcome" onclick="closeWelcome()"><i class="fas fa-arrow-right"></i> ادامه</button>
   </div>
 </div>
 
 <div id="qrModal">
   <div class="popupContent">
     <div id="qrBox"></div>
-    <button onclick="closeQR()">بستن</button>
+    <button onclick="closeQR()"><i class="fas fa-times"></i> بستن</button>
   </div>
 </div>
 
 <script>
-let currentTheme = localStorage.getItem('theme') || 'day';
+// Theme toggle
+let currentTheme = localStorage.getItem('theme') || 'night';
 const root = document.body;
 const themeToggle = document.getElementById('themeToggle');
 function applyTheme(theme){
@@ -261,14 +220,9 @@ let currentPage = 1;
 let mtprotoList = [];
 let socksList = [];
 
-function sortList(list){
-  return list.sort((a,b)=>{ const pa=a.ping??1e9,pb=b.ping??1e9; return pa-pb; });
-}
+function sortList(list){ return list.sort((a,b)=> (a.ping??1e9)-(b.ping??1e9)); }
 
-function countryFlag(code){
-  if(!code) return '';
-  return `<span class="fi fi-${code.toLowerCase()}"></span>`;
-}
+function countryFlag(code){ return code? `<span class="fi fi-${code.toLowerCase()}"></span>`:''; }
 
 function buildCard(item,type){
   const isMT = type==='mtproto';
@@ -289,27 +243,27 @@ function buildCard(item,type){
   card.className = 'card';
   card.innerHTML = `
     <div class="card-header">
-      <span class="badge">${isMT?'MTProto':'SOCKS5'}</span>
+      <span class="badge">${isMT?'<i class="fas fa-shield-alt"></i> MTProto':'<i class="fas fa-network-wired"></i> SOCKS5'}</span>
       <strong>${title}</strong>:<span>${port}</span>
     </div>
     <div class="kvs">
-      <div class="kv">کشور: ${country} ${countryFlag(country)}</div>
-      <div class="kv">ارائه‌دهنده: ${provider}</div>
-      ${isMT?`<div class="kv">آپتایم: ${uptime??'—'}%</div>`:''}
-      <div class="kv">پینگ: ${ping}</div>
-      <div class="kv">ایجاد: ${new Date(addTime*1000).toLocaleString()}</div>
-      ${updateTime?`<div class="kv">بروزرسانی: ${new Date(updateTime*1000).toLocaleString()}</div>`:''}
+      <div class="kv"><i class="fas fa-flag"></i> کشور: ${country} ${countryFlag(country)}</div>
+      <div class="kv"><i class="fas fa-user-tie"></i> ارائه‌دهنده: ${provider}</div>
+      ${isMT?`<div class="kv"><i class="fas fa-clock"></i> آپتایم: ${uptime??'—'}%</div>`:''}
+      <div class="kv"><i class="fas fa-tachometer-alt"></i> پینگ: ${ping}</div>
+      <div class="kv"><i class="fas fa-calendar-plus"></i> ایجاد: ${new Date(addTime*1000).toLocaleString()}</div>
+      ${updateTime?`<div class="kv"><i class="fas fa-sync-alt"></i> بروزرسانی: ${new Date(updateTime*1000).toLocaleString()}</div>`:''}
     </div>
     <div class="actions">
-      <a class="btn btn-connect" style="background:${currentTheme==='day'? 'var(--btn-connect-day)': 'var(--btn-connect-night)'}" href="${tgLink}" target="_blank">اتصال</a>
-      <button class="btn btn-copy" data-copy="${copyText}" style="background:${currentTheme==='day'? 'var(--btn-copy-day)': 'var(--btn-copy-night)'}">کپی</button>
-      <button class="btn btn-qr" data-qr="${tgLink}" style="background:${currentTheme==='day'? 'var(--btn-qr-day)': 'var(--btn-qr-night)'}">QR</button>
+      <a class="btn btn-connect" style="background:${currentTheme==='day'? 'var(--btn-connect-day)': 'var(--btn-connect-night)'}" href="${tgLink}" target="_blank"><i class="fas fa-plug"></i> اتصال</a>
+      <button class="btn btn-copy" data-copy="${copyText}" style="background:${currentTheme==='day'? 'var(--btn-copy-day)': 'var(--btn-copy-night)'}"><i class="fas fa-copy"></i> کپی</button>
+      <button class="btn btn-qr" data-qr="${tgLink}" style="background:${currentTheme==='day'? 'var(--btn-qr-day)': 'var(--btn-qr-night)'}"><i class="fas fa-qrcode"></i> QR</button>
     </div>
   `;
   card.querySelector('.btn-copy').addEventListener('click', e=>{
     navigator.clipboard.writeText(e.currentTarget.dataset.copy);
-    e.currentTarget.textContent='کپی شد';
-    setTimeout(()=>{e.currentTarget.innerHTML='کپی';},1500);
+    e.currentTarget.innerHTML='<i class="fas fa-check"></i> کپی شد';
+    setTimeout(()=>{e.currentTarget.innerHTML='<i class="fas fa-copy"></i> کپی';},1500);
   });
   card.querySelector('.btn-qr').addEventListener('click', e=>{ openQR(e.currentTarget.dataset.qr); });
   return card;
@@ -344,86 +298,20 @@ function renderPage(){
     pagEl.appendChild(next);
   }
 
-  const statEl = document.getElementById('tabStats');
-  statEl.innerHTML=`<div class="stat">تعداد: ${total}</div>`;
+  document.getElementById('tabStats').innerHTML=`<div class="stat">تعداد: ${total}</div>`;
 }
 
-// QR Modal with drag & animation
+// QR Modal
 function openQR(text){
   const modal = document.getElementById('qrModal');
   const popup = modal.querySelector('.popupContent');
   const qrBox = document.getElementById('qrBox');
-
   qrBox.innerHTML='';
   new QRCode(qrBox, {text, width:220, height:220});
-
   modal.style.display = 'grid';
-  popup.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-  popup.style.transform = 'scale(0.7)';
-  popup.style.opacity = '0';
-  setTimeout(()=>{
-    popup.style.transform = 'scale(1)';
-    popup.style.opacity = '1';
-  }, 10);
-
-  modal.addEventListener('click', function(e){
-    if(e.target === modal) closeQR();
-  });
-
-  let startY = 0, currentY = 0, isDragging = false;
-  const maxDrag = 150;
-
-  function dragStart(e){
-    isDragging = true;
-    startY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
-    popup.style.transition = 'none';
-  }
-
-  function dragMove(e){
-    if(!isDragging) return;
-    currentY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
-    let delta = currentY - startY;
-    delta = Math.max(-maxDrag, Math.min(delta, maxDrag));
-    popup.style.transform = `translateY(${delta}px) scale(${1 - Math.abs(delta)/800})`;
-    popup.style.opacity = `${1 - Math.abs(delta)/400}`;
-  }
-
-  function dragEnd(){
-    if(!isDragging) return;
-    let delta = currentY - startY;
-    isDragging = false;
-    popup.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-    if(Math.abs(delta) > maxDrag/2){
-      closeQR();
-    } else {
-      popup.style.transform = 'scale(1)';
-      popup.style.opacity = '1';
-    }
-  }
-
-  popup.addEventListener('mousedown', dragStart);
-  popup.addEventListener('touchstart', dragStart);
-  window.addEventListener('mousemove', dragMove);
-  window.addEventListener('touchmove', dragMove);
-  window.addEventListener('mouseup', dragEnd);
-  window.addEventListener('touchend', dragEnd);
 }
 
-function closeQR(){
-  const modal = document.getElementById('qrModal');
-  const popup = modal.querySelector('.popupContent');
-  popup.style.transform = 'scale(0.7)';
-  popup.style.opacity = '0';
-  modal.style.opacity = '0';
-  setTimeout(()=>{
-    modal.style.display = 'none';
-    document.getElementById('qrBox').innerHTML='';
-    popup.style.transform = '';
-    popup.style.opacity = '';
-    modal.style.opacity = '';
-  }, 300);
-}
-
+function closeQR(){ document.getElementById('qrModal').style.display='none'; }
 function closeWelcome(){ document.getElementById('welcomePopup').style.display='none'; }
 
 (async function(){
