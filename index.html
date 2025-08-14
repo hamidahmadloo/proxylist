@@ -1,97 +1,274 @@
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>دنیای بدون مرز تلگرام</title>
 
-<!-- Fonts & Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-<link href="https://cdn.jsdelivr.net/gh/rastikerdar/iransans@v5.0.0/dist/font-face.css" rel="stylesheet" type="text/css"/>
+<!-- Font Awesome Free CDN (موقت) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- IRANSans از CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/IRANSans@v5.0.0/dist/font-face.css">
 
 <style>
 :root {
-  --c1: #B1B2FF; --c2: #AAC4FF; --c3: #D2DAFF; --c4: #EEF1FF;
-  --text: #0f172a; --muted: #475569;
-  --btn-connect: #4f46e5; --btn-copy: #059669; --btn-qr: #0ea5e9;
-  --shadow: 0 10px 30px rgba(2,6,23,.12);
+  --day-bg: rgba(255,255,255,1);
+  --day-card: rgba(255,255,255,0.9);
+  --day-surface: rgba(255,255,255,0.8);
+  --day-light: rgba(255,255,255,0.7);
+  --night-bg: rgba(0,0,0,1);
+  --night-card: rgba(0,0,0,0.9);
+  --night-surface: rgba(0,0,0,0.8);
+  --night-light: rgba(0,0,0,0.7);
+
+  --btn-connect-day: #4f46e5;
+  --btn-copy-day: #059669;
+  --btn-qr-day: #0ea5e9;
+
+  --btn-connect-night: #818cf8;
+  --btn-copy-night: #34d399;
+  --btn-qr-night: #38bdf8;
+
+  --text-day: #111;
+  --text-night: #f8fafc;
+  --muted-day: #555;
+  --muted-night: #aaa;
 }
-:root.theme-dark {
-  --c1:#404258; --c2:#474E68; --c3:#50577A; --c4:#6B728E;
-  --text:#f8fafc; --muted:#cbd5e1;
-  --btn-connect:#818cf8; --btn-copy:#34d399; --btn-qr:#38bdf8;
-  --shadow:0 10px 30px rgba(15,23,42,.35);
+
+body {
+  font-family: 'IRANSans', sans-serif;
+  margin:0;
+  background: var(--day-bg);
+  color: var(--text-day);
 }
-*{box-sizing:border-box;} body{margin:0; font-family: IRANSans, sans-serif; background:var(--c4); color:var(--text);}
-.header{position:sticky;top:0;background:var(--c4);padding:10px;border-bottom:1px solid var(--c1);display:flex;align-items:center;justify-content:space-between;}
-.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;}
-.brand .logo{width:36px;height:36px;background:linear-gradient(135deg,var(--c1),var(--c2));display:grid;place-items:center;border-radius:8px;color:#fff;}
-.controls{display:flex;gap:10px;}
-.btn{font-family: IRANSans;padding:8px 12px;border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:0.2s;}
-.btn:hover{filter:brightness(1.05);}
-.grid{display:grid;gap:16px;padding:20px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));}
-.card{background:var(--c3);border-radius:16px;padding:12px;display:grid;gap:10px;box-shadow:var(--shadow);}
-.card .meta{font-size:14px;color:var(--muted);display:grid;gap:4px;}
-.actions{display:flex;gap:6px;flex-wrap:wrap;}
-.footer{text-align:center;padding:20px;color:var(--muted);}
-.mono{font-family:ui-monospace, monospace;}
-.modal{position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.5);z-index:100;}
-.modal.show{display:grid;}
-.modal-card{background:var(--c4);padding:20px;border-radius:16px;box-shadow:var(--shadow);}
+
+body.theme-dark {
+  background: var(--night-bg);
+  color: var(--text-night);
+}
+
+/* Header */
+.header { display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background: var(--day-card); }
+body.theme-dark .header { background: var(--night-card); }
+.brand { display:flex; align-items:center; gap:8px; font-weight:700; font-size:20px; }
+.brand .logo { width:36px;height:36px;background:linear-gradient(45deg,#37a5f5,#33d6a6);display:grid;place-items:center;color:white;border-radius:6px; }
+.tabs { display:flex; gap:12px; margin-top:10px; border-bottom:1px solid #ccc; }
+body.theme-dark .tabs { border-color:#555; }
+.tab { cursor:pointer; padding:6px 14px; border-radius:6px; }
+.tab.active { font-weight:700; border-bottom:2px solid #4f46e5; }
+
+/* Stats */
+.stats { display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; }
+.stat { padding:8px 12px; border-radius:10px; background: var(--day-surface); box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+body.theme-dark .stat { background: var(--night-surface); }
+
+/* Grid */
+.grid { display:grid; gap:16px; margin-top:16px; }
+.card { border-radius:14px; background: var(--day-card); padding:12px; display:grid; gap:8px; }
+body.theme-dark .card { background: var(--night-card); }
+.card-header { display:flex; align-items:center; gap:8px; }
+.badge { font-size:12px; padding:2px 6px; border-radius:8px; background:#ddd; }
+body.theme-dark .badge { background:#444; color:#fff; }
+.kvs { display:grid; grid-template-columns:1fr 1fr; gap:4px; }
+.kv { display:flex; align-items:center; gap:4px; padding:4px 6px; border-radius:6px; background: var(--day-surface); font-size:13px; }
+body.theme-dark .kv { background: var(--night-surface); }
+.actions { display:flex; gap:6px; flex-wrap:wrap; }
+.btn { cursor:pointer; padding:6px 10px; border-radius:6px; border:none; display:inline-flex; align-items:center; gap:4px; font-family:'IRANSans',sans-serif; }
+.btn-connect { color:white; }
+.btn-copy { color:white; }
+.btn-qr { color:white; }
+
+/* Pagination */
+.pagination { display:flex; justify-content:center; gap:8px; margin-top:16px; }
+.page-btn { cursor:pointer; padding:4px 8px; border-radius:6px; background:#eee; }
+body.theme-dark .page-btn { background:#333; color:#fff; }
+.page-btn.active { font-weight:700; border:1px solid #4f46e5; }
+
+.footer { text-align:center; padding:16px; margin-top:20px; }
+.footer a { color:#4f46e5; text-decoration:none; display:inline-flex; align-items:center; gap:4px; }
 </style>
 </head>
 <body>
+
 <header class="header">
   <div class="brand">
     <div class="logo"><i class="fab fa-telegram-plane"></i></div>
     <div>دنیای بدون مرز تلگرام</div>
   </div>
-  <div class="controls">
-    <button id="themeToggle" class="btn"><i class="fa-solid fa-moon"></i> حالت شب/روز</button>
-    <button id="refreshBtn" class="btn"><i class="fa-solid fa-rotate"></i> بروزرسانی</button>
-  </div>
+  <button id="themeToggle" class="btn"><i class="fa-solid fa-moon"></i> حالت شب/روز</button>
 </header>
-<main>
-  <section class="grid" id="mtprotoGrid"></section>
-  <section class="grid" id="socksGrid"></section>
-</main>
+
+<div class="tabs">
+  <div class="tab active" data-tab="mtproto">MTProto</div>
+  <div class="tab" data-tab="socks">SOCKS5</div>
+</div>
+
+<div class="stats" id="tabStats"></div>
+<div class="grid" id="cardsContainer"></div>
+<div class="pagination" id="pagination"></div>
+
 <footer class="footer">
   ارائه دهنده <a href="https://t.me/hamid_ahmadloo" target="_blank"><i class="fab fa-telegram-plane"></i> @Hamid_Ahmadloo</a>
 </footer>
-<div class="modal" id="qrModal"><div class="modal-card"><button id="qrClose" class="btn"><i class="fa-solid fa-xmark"></i> بستن</button><div id="qrBox"></div></div></div>
+
+<!-- QR Code Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<div id="qrModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);place-items:center;display:grid;">
+  <div style="background:white;padding:16px;border-radius:10px;max-width:300px;text-align:center;">
+    <div id="qrBox"></div>
+    <button onclick="closeQR()" style="margin-top:12px;padding:6px 12px;">بستن</button>
+  </div>
+</div>
+
 <script>
-const API_BASE='https://mtpro.xyz';
-const ENDPOINTS={mtproto:`${API_BASE}/api/?type=mtproto`,socks:`${API_BASE}/api/?type=socks`};
-const themeToggle=document.getElementById('themeToggle');
-const refreshBtn=document.getElementById('refreshBtn');
-const root=document.documentElement;
-const THEME_KEY='proxy-theme';
-const mtprotoGrid=document.getElementById('mtprotoGrid');
-const socksGrid=document.getElementById('socksGrid');
-const qrModal=document.getElementById('qrModal');
-const qrBox=document.getElementById('qrBox');
-const qrClose=document.getElementById('qrClose');
-function applyTheme(theme){const dark=theme==='dark';root.classList.toggle('theme-dark',dark);themeToggle.innerHTML=dark?'<i class="fa-solid fa-sun"></i> حالت روز':'<i class="fa-solid fa-moon"></i> حالت شب';localStorage.setItem(THEME_KEY,dark?'dark':'light');}
-applyTheme(localStorage.getItem(THEME_KEY)||'light');
-themeToggle.addEventListener('click',()=>{applyTheme(root.classList.contains('theme-dark')?'light':'dark');});
-qrClose.addEventListener('click',()=>{qrModal.classList.remove('show');qrBox.innerHTML='';});
-qrModal.addEventListener('click',(e)=>{if(e.target===qrModal){qrModal.classList.remove('show');qrBox.innerHTML='';}});
-async function fetchJSON(url){const res=await fetch(url);if(!res.ok)throw new Error(`HTTP ${res.status}`);return res.json();}
-function tgLinkMt({host,port,secret}){const server=host.replace(/^https?:\/\//,'').replace(/\/$/,'');return `tg://proxy?server=${encodeURIComponent(server)}&port=${encodeURIComponent(port||443)}&secret=${encodeURIComponent(secret)}`;}
-function tgLinkSocks({ip,port,user='',pass=''}){const qp=new URLSearchParams({server:ip,port:String(port||1080)});if(user)qp.set('user',user);if(pass)qp.set('pass',pass);return `tg://socks?${qp.toString()}`;}
-function timeAgo(unix){if(!unix)return'—';const s=Math.floor(Date.now()/1000-unix);const map=[['روز',86400],['ساعت',3600],['دقیقه',60]];for(const [l,v] of map){if(s>=v)return`${Math.floor(s/v)} ${l} پیش`}return'چند لحظه پیش';}
-function buildCard(item,type){const isMT=type==='mtproto';const title=isMT?item.host:item.ip;const port=item.port|| (isMT?443:1080);const provider=item.provider||'—';const country=item.country||'—';const uptime=item.uptime;const ping=item.ping;const addTime=item.addTime;const updateTime=item.updateTime;const link=isMT?tgLinkMt(item):tgLinkSocks(item);const copyText=isMT?`mtproto://${title}:${port}?secret=${item.secret}`:`socks5://${item.ip}:${port}`;const card=document.createElement('article');card.className='card';card.innerHTML=`<div><strong class="mono">${title}:${port}</strong></div><div class="meta"><div>کشور: ${country}</div><div>ارائه‌دهنده: ${provider}</div><div>پینگ: ${ping??'—'}</div><div>افزودن: ${timeAgo(addTime)}</div>${isMT?`<div>آپ‌تایم: ${uptime??'—'}%</div><div>به‌روزرسانی: ${timeAgo(updateTime)}</div>`:''}</div><div class="actions"><a class="btn btn-connect" href="${link}" target="_blank">اتصال</a><button class="btn btn-copy" data-copy="${copyText}">کپی</button><button class="btn btn-qr" data-qr="${link}">کیوآر</button></div>`;
-card.querySelector('.btn-copy').addEventListener('click',e=>{navigator.clipboard.writeText(e.currentTarget.dataset.copy).then(()=>{e.currentTarget.innerHTML='کپی شد';setTimeout(()=>e.currentTarget.innerHTML='کپی',1500);});});
-card.querySelector('.btn-qr').addEventListener('click',e=>{qrModal.classList.add('show');qrBox.innerHTML='';new QRCode(qrBox,{text:e.currentTarget.dataset.qr,width:240,height:240,correctLevel:QRCode.CorrectLevel.M});});
-return card;}
-async function render(){try{
-  const [mt,sk]=await Promise.all([fetchJSON(ENDPOINTS.mtproto),fetchJSON(ENDPOINTS.socks)]);
-  mt.forEach(item=>mtprotoGrid.appendChild(buildCard(item,'mtproto')));
-  sk.forEach(item=>socksGrid.appendChild(buildCard(item,'socks')));
-}catch(err){console.error(err);mtprotoGrid.innerHTML=`خطا در دریافت اطلاعات: ${err.message}`;}}
-render();
-refreshBtn.addEventListener('click',render);
+let currentTheme = localStorage.getItem('theme') || 'day';
+const root = document.body;
+const themeToggle = document.getElementById('themeToggle');
+
+function applyTheme(theme){
+  currentTheme = theme;
+  root.classList.toggle('theme-dark', theme==='night');
+  localStorage.setItem('theme', theme);
+}
+themeToggle.addEventListener('click', ()=> applyTheme(currentTheme==='day'?'night':'day'));
+applyTheme(currentTheme);
+
+// Tabs
+const tabs = document.querySelectorAll('.tab');
+let activeTab = 'mtproto';
+tabs.forEach(tab=>tab.addEventListener('click', ()=>{
+  tabs.forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  activeTab = tab.dataset.tab;
+  currentPage = 1;
+  renderPage();
+}));
+
+// API Endpoint
+const API_BASE = 'https://mtpro.xyz';
+async function fetchJSON(url){
+  const res = await fetch(url);
+  if(!res.ok) throw new Error(res.statusText);
+  return res.json();
+}
+
+// Pagination
+const perPage = 30;
+let currentPage = 1;
+let mtprotoList = [];
+let socksList = [];
+
+function sortList(list){
+  return list.sort((a,b)=>{
+    const pa = a.ping??1e9, pb = b.ping??1e9;
+    return pa-pb;
+  });
+}
+
+function countryFlag(code){
+  if(!code || code.length!==2) return '🏳️';
+  const A=0x1F1E6;
+  return String.fromCodePoint(A+code.charCodeAt(0)-65, A+code.charCodeAt(1)-65);
+}
+
+function buildCard(item,type){
+  const isMT = type==='mtproto';
+  const title = isMT? item.host:item.ip;
+  const port = item.port;
+  const provider = item.provider;
+  const country = item.country||'—';
+  const addTime = item.addTime;
+  const updateTime = item.updateTime;
+  const ping = item.ping??'—';
+  const uptime = item.uptime;
+
+  const tgLink = isMT ? `tg://proxy?server=${item.host}&port=${port}&secret=${item.secret}`
+                      : `tg://socks?server=${item.ip}&port=${port}`;
+
+  const copyText = isMT? `mtproto://${item.host}:${port}?secret=${item.secret}` : `socks5://${item.ip}:${port}`;
+
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <div class="card-header">
+      <span class="badge"><i class="fa-solid ${isMT?'fa-shield-halved':'fa-socks'}"></i> ${isMT?'MTProto':'SOCKS5'}</span>
+      <strong>${title}</strong>:<span>${port}</span>
+    </div>
+    <div class="kvs">
+      <div class="kv"><i class="fa-solid fa-globe"></i> کشور: ${country} ${countryFlag(country)}</div>
+      <div class="kv"><i class="fa-solid fa-building"></i> ارائه‌دهنده: ${provider}</div>
+      ${isMT?`<div class="kv"><i class="fa-solid fa-chart-line"></i> آپتایم: ${uptime??'—'}%</div>`:''}
+      <div class="kv"><i class="fa-solid fa-wave-square"></i> پینگ: ${ping}</div>
+      <div class="kv"><i class="fa-solid fa-clock-rotate-left"></i> ایجاد: ${new Date(addTime*1000).toLocaleString()}</div>
+      ${updateTime?`<div class="kv"><i class="fa-solid fa-rotate"></i> بروزرسانی: ${new Date(updateTime*1000).toLocaleString()}</div>`:''}
+    </div>
+    <div class="actions">
+      <a class="btn btn-connect" style="background:${currentTheme==='day'? 'var(--btn-connect-day)': 'var(--btn-connect-night)'}" href="${tgLink}" target="_blank"><i class="fa-solid fa-plug"></i> اتصال</a>
+      <button class="btn btn-copy" data-copy="${copyText}" style="background:${currentTheme==='day'? 'var(--btn-copy-day)': 'var(--btn-copy-night)'}"><i class="fa-solid fa-copy"></i> کپی</button>
+      <button class="btn btn-qr" data-qr="${tgLink}" style="background:${currentTheme==='day'? 'var(--btn-qr-day)': 'var(--btn-qr-night)'}"><i class="fa-solid fa-qrcode"></i> QR</button>
+    </div>
+  `;
+  card.querySelector('.btn-copy').addEventListener('click', e=>{
+    navigator.clipboard.writeText(e.currentTarget.dataset.copy);
+    e.currentTarget.textContent='کپی شد';
+    setTimeout(()=>{e.currentTarget.innerHTML='<i class="fa-solid fa-copy"></i> کپی';},1500);
+  });
+  card.querySelector('.btn-qr').addEventListener('click', e=>{
+    openQR(e.currentTarget.dataset.qr);
+  });
+  return card;
+}
+
+// Render Page
+function renderPage(){
+  const list = activeTab==='mtproto'? mtprotoList: socksList;
+  const total = list.length;
+  const start = (currentPage-1)*perPage;
+  const end = start+perPage;
+  const pageItems = list.slice(start,end);
+  const container = document.getElementById('cardsContainer');
+  container.innerHTML='';
+  pageItems.forEach(item=>container.appendChild(buildCard(item,activeTab)));
+
+  // Pagination buttons
+  const pages = Math.ceil(total/perPage);
+  const pagEl = document.getElementById('pagination');
+  pagEl.innerHTML='';
+  if(pages<=1) return;
+  if(currentPage>1){
+    const prev = document.createElement('button'); prev.textContent='قبلی'; prev.className='page-btn'; prev.onclick=()=>{currentPage--;renderPage();};
+    pagEl.appendChild(prev);
+  }
+  if(currentPage<pages){
+    const next = document.createElement('button'); next.textContent='بعدی'; next.className='page-btn'; next.onclick=()=>{currentPage++;renderPage();};
+    pagEl.appendChild(next);
+  }
+
+  // Update stats
+  const statEl = document.getElementById('tabStats');
+  statEl.innerHTML=`<div class="stat">تعداد: ${total}</div>`;
+}
+
+// QR
+function openQR(text){ document.getElementById('qrModal').style.display='grid'; document.getElementById('qrBox').innerHTML=''; new QRCode(document.getElementById('qrBox'),{text,width:220,height:220}); }
+function closeQR(){ document.getElementById('qrModal').style.display='none'; }
+
+// Init
+(async function(){
+  try{
+    const [mt,socks] = await Promise.all([
+      fetchJSON(`${API_BASE}/api/?type=mtproto`),
+      fetchJSON(`${API_BASE}/api/?type=socks`)
+    ]);
+    mtprotoList = sortList(mt);
+    socksList = sortList(socks);
+    renderPage();
+  }catch(err){
+    console.error(err);
+    document.getElementById('cardsContainer').innerHTML='<p>خطا در دریافت اطلاعات.</p>';
+  }
+})();
 </script>
 </body>
 </html>
