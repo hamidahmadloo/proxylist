@@ -3,16 +3,14 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>دنیای بدون مرز تلگرام | پروکسی‌یاب</title>
+<title>دنیای بدون مرز تلگرام</title>
 
-<!-- Font Awesome Free (برای آیکون‌ها) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" />
+<!-- Fonts -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/iransans@v6.0.1/dist/font-face.css" rel="stylesheet">
 
-<!-- IRANSans CDN یا محلی -->
-<style>
-@import url('https://cdn.jsdelivr.net/gh/rastikerdar/IRANSans@6.2.0/dist/font-face.css');
-body, button, input { font-family: 'IRANSans', sans-serif; }
-</style>
+<!-- QRCode library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 :root {
@@ -27,172 +25,108 @@ body, button, input { font-family: 'IRANSans', sans-serif; }
   --btn-connect: #818cf8; --btn-copy: #34d399; --btn-qr: #38bdf8;
   --shadow: 0 10px 30px rgba(15,23,42,.35);
 }
-body { margin:0; background: var(--c4); color: var(--text); }
-.container { max-width:1200px;margin:0 auto;padding:16px; }
-.header { display:flex; align-items:center; gap:12px; padding:12px; background:var(--c3); border-radius:12px; margin-bottom:12px; }
-.header .logo { width:36px; height:36px; border-radius:8px; background:#0088cc; display:grid; place-items:center; color:white; }
-.header .brand { font-weight:700; font-size:20px; display:flex; align-items:center; gap:8px; }
-.header .controls { margin-left:auto; display:flex; gap:8px; }
-.btn { padding:8px 12px; border:none; border-radius:12px; cursor:pointer; color:white; display:flex; align-items:center; gap:6px; font-family:IRANSans; }
-.btn-connect { background: var(--btn-connect); } .btn-copy { background: var(--btn-copy); } .btn-qr { background: var(--btn-qr); }
-.grid { display:grid; gap:16px; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); }
-.card { background: var(--c3); border-radius:16px; padding:16px; box-shadow:var(--shadow); display:grid; gap:8px; }
-.card-header { display:flex; gap:8px; align-items:center; }
-.badge { padding:4px 8px; border-radius:12px; background:var(--c2); font-size:12px; }
-.meta { font-size:14px; color:var(--muted); }
-.kvs { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
-.modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); place-items:center; }
+body { margin:0; font-family: IRANSans,sans-serif; background: var(--c4); color: var(--text); }
+.header { position: sticky; top:0; background: var(--c4); padding: 16px; display: flex; align-items:center; gap:12px; justify-content: space-between; }
+.brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:20px; }
+.brand .logo { width:36px; height:36px; display:grid; place-items:center; background: #25A6E9; color:white; border-radius:8px; }
+.controls { display:flex; gap:10px; }
+.btn { padding:8px 14px; border:none; border-radius:12px; cursor:pointer; display:flex; align-items:center; gap:6px; font-family: IRANSans,sans-serif; }
+.btn:hover { filter: brightness(1.05); }
+.grid { display:grid; grid-template-columns: repeat(auto-fill,minmax(280px,1fr)); gap:16px; padding:16px; }
+.card { border-radius:16px; background: var(--c3); padding:16px; box-shadow: var(--shadow); display:grid; gap:10px; }
+.card-header { display:flex; align-items:center; gap:10px; }
+.actions { display:flex; gap:8px; flex-wrap:wrap; }
+.modal { position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.5); }
 .modal.show { display:grid; }
-.modal-card { background: var(--c4); color: var(--text); border-radius:16px; padding:16px; }
-.modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
-.qr-box { display:grid; place-items:center; padding:16px; border:1px dashed var(--c2); border-radius:12px; background: var(--c3); }
-.footer { text-align:center; margin-top:20px; color:var(--muted); }
-.footer a { color:var(--btn-qr); text-decoration:none; }
+.modal-card { background: var(--c4); padding:20px; border-radius:16px; }
+.footer { text-align:center; padding:20px; color: var(--muted); }
 </style>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 <header class="header">
-  <div class="logo"><i class="fab fa-telegram-plane"></i></div>
-  <div class="brand">دنیای بدون مرز تلگرام</div>
+  <div class="brand">
+    <div class="logo"><i class="fa-brands fa-telegram-plane"></i></div>
+    دنیای بدون مرز تلگرام
+  </div>
   <div class="controls">
     <button id="themeToggle" class="btn"><i class="fa-solid fa-moon"></i> حالت شب/روز</button>
     <button id="refreshBtn" class="btn"><i class="fa-solid fa-arrows-rotate"></i> بروزرسانی</button>
   </div>
 </header>
-
-<main class="container">
-  <h3>MTPROTO</h3>
-  <section id="mtprotoGrid" class="grid"></section>
-  <h3>SOCKS5</h3>
-  <section id="socksGrid" class="grid"></section>
+<main>
+  <div id="mtGrid" class="grid"></div>
+  <div id="socksGrid" class="grid"></div>
 </main>
+<footer class="footer">
+  ارائه دهنده <a href="https://t.me/hamid_ahmadloo" target="_blank"><i class="fa-brands fa-telegram"></i> @Hamid_Ahmadloo</a>
+</footer>
 
 <div class="modal" id="qrModal">
   <div class="modal-card">
-    <div class="modal-header">
-      <strong>کیوآر اتصال</strong>
-      <button id="qrClose" class="btn"><i class="fa-solid fa-xmark"></i> بستن</button>
-    </div>
-    <div class="qr-box" id="qrBox"></div>
+    <div id="qrBox"></div>
+    <button id="qrClose">بستن</button>
   </div>
 </div>
 
-<footer class="footer">
-  ارائه دهنده <a href="https://t.me/hamid_ahmadloo" target="_blank"><i class="fab fa-telegram"></i> @Hamid_Ahmadloo</a>
-</footer>
-
 <script>
+const mtGrid = document.getElementById('mtGrid');
+const socksGrid = document.getElementById('socksGrid');
+const themeToggle = document.getElementById('themeToggle');
+const refreshBtn = document.getElementById('refreshBtn');
+const qrModal = document.getElementById('qrModal');
+const qrBox = document.getElementById('qrBox');
+const qrClose = document.getElementById('qrClose');
+
 const API_BASE = 'http://localhost:3000/proxy';
 
-const mtGrid = document.getElementById('mtprotoGrid');
-const skGrid = document.getElementById('socksGrid');
+function tgLinkMt(item){ return `tg://proxy?server=${encodeURIComponent(item.host)}&port=${item.port}&secret=${item.secret}`; }
+function tgLinkSocks(item){ return `tg://socks?server=${encodeURIComponent(item.ip)}&port=${item.port}`; }
 
-async function fetchJSON(type){
-  const res = await fetch(`${API_BASE}?type=${type}`);
-  if(!res.ok) throw new Error(res.statusText);
-  return res.json();
-}
-
-function countryFlag(code){
-  if(!code || code.length!==2) return '🏳️';
-  const A = 0x1F1E6;
-  const cc = code.toUpperCase();
-  return String.fromCodePoint(A + cc.charCodeAt(0), A + cc.charCodeAt(1));
-}
-
-function timeAgo(unix){
-  if(!unix) return '—';
-  const secs = Math.max(0, Math.floor(Date.now()/1000) - Number(unix));
-  if(secs>86400) return `${Math.floor(secs/86400)} روز پیش`;
-  if(secs>3600) return `${Math.floor(secs/3600)} ساعت پیش`;
-  if(secs>60) return `${Math.floor(secs/60)} دقیقه پیش`;
-  return 'چند لحظه پیش';
-}
-
-function buildCard(item, type){
-  const title = type==='mtproto'? item.host: item.ip;
-  const port = item.port;
-  const country = item.country || '—';
-  const provider = item.provider || '—';
-  const ping = item.ping ?? '—';
-  const addTime = timeAgo(item.addTime);
-  const updateTime = timeAgo(item.updateTime);
-  const uptime = item.uptime ?? '—';
-  const link = type==='mtproto' 
-    ? `tg://proxy?server=${item.host}&port=${port}&secret=${item.secret}` 
-    : `tg://socks?server=${item.ip}&port=${port}`;
-  const copyText = type==='mtproto'
-    ? `mtproto://${item.host}:${port}?secret=${item.secret}`
-    : `socks5://${item.ip}:${port}`;
-  
-  const card = document.createElement('article');
+function buildCard(item){
+  const isMT = !!item.secret;
+  const card = document.createElement('div');
   card.className='card';
   card.innerHTML=`
     <div class="card-header">
-      <span class="badge">${type.toUpperCase()}</span>
-      <strong>${title}</strong>:${port}
+      <strong>${isMT?item.host:item.ip}:${item.port}</strong>
     </div>
-    <div class="meta">
-      کشور: ${country} ${countryFlag(country)} | ارائه‌دهنده: ${provider} | پینگ: ${ping}ms
-    </div>
-    <div class="meta">
-      افزودن: ${addTime} ${type==='mtproto'? '| آپ‌تایم: '+uptime+'% | بروزرسانی: '+updateTime : ''}
-    </div>
-    <div class="meta">
-      <button class="btn btn-connect" onclick="window.open('${link}','_blank')"><i class="fa-solid fa-plug"></i> اتصال</button>
-      <button class="btn btn-copy" data-copy="${copyText}"><i class="fa-solid fa-copy"></i> کپی</button>
-      <button class="btn btn-qr" data-qr="${link}"><i class="fa-solid fa-qrcode"></i> کیوآر</button>
-    </div>
-  `;
-  
-  // Copy
-  card.querySelector('.btn-copy').addEventListener('click', async e=>{
-    try{
-      await navigator.clipboard.writeText(e.currentTarget.dataset.copy);
-      e.currentTarget.innerText='کپی شد';
-      setTimeout(()=>{ e.currentTarget.innerHTML=`<i class="fa-solid fa-copy"></i> کپی`; },1500);
-    }catch{ alert('کپی ناموفق'); }
-  });
-
-  // QR
-  card.querySelector('.btn-qr').addEventListener('click', e=>{
-    openQR(e.currentTarget.dataset.qr);
-  });
-
+    <div>کشور: ${item.country} <span>${item.country}</span></div>
+    <div>ارائه دهنده: ${item.provider}</div>
+    <div>پینگ: ${item.ping}</div>
+    <div>ایجاد: ${item.addTime}</div>
+    ${isMT?`<div>آپتایم: ${item.uptime}</div>`:''}
+    ${isMT?`<div>به‌روزرسانی: ${item.updateTime}</div>`:''}
+    <div class="actions">
+      <a class="btn" href="${isMT?tgLinkMt(item):tgLinkSocks(item)}" target="_blank">اتصال</a>
+      <button class="btn" onclick="navigator.clipboard.writeText('${isMT?`mtproto://${item.host}:${item.port}?secret=${item.secret}`:`socks5://${item.ip}:${item.port}`}')">کپی</button>
+      <button class="btn" onclick="openQR('${isMT?tgLinkMt(item):tgLinkSocks(item)}')">کیوآر</button>
+    </div>`;
   return card;
 }
 
-const qrModal = document.getElementById('qrModal');
-const qrBox = document.getElementById('qrBox');
-document.getElementById('qrClose').addEventListener('click',()=>{ qrModal.classList.remove('show'); qrBox.innerHTML=''; });
+function openQR(text){ qrModal.classList.add('show'); qrBox.innerHTML=''; new QRCode(qrBox,{text,width:240,height:240}); }
+function closeQR(){ qrModal.classList.remove('show'); qrBox.innerHTML=''; }
+qrClose.addEventListener('click', closeQR);
+qrModal.addEventListener('click', e=>{if(e.target===qrModal) closeQR();});
 
-function openQR(text){
-  qrModal.classList.add('show'); qrBox.innerHTML=''; new QRCode(qrBox,{text,width:240,height:240});
-}
-
-// Theme toggle
-const themeToggle = document.getElementById('themeToggle');
-themeToggle.addEventListener('click',()=>{
-  document.documentElement.classList.toggle('theme-dark');
-});
-
-// Refresh
-document.getElementById('refreshBtn').addEventListener('click', init);
-
-async function init(){
+async function fetchProxies(){
   try{
-    const [mt, sk] = await Promise.all([fetchJSON('mtproto'), fetchJSON('socks')]);
-    mtGrid.innerHTML=''; skGrid.innerHTML='';
-    mt.forEach(item=> mtGrid.appendChild(buildCard(item,'mtproto')));
-    sk.forEach(item=> skGrid.appendChild(buildCard(item,'socks')));
-  }catch(err){
-    alert('خطا در دریافت اطلاعات: '+err.message);
-  }
+    const [mtRes,socksRes] = await Promise.all([
+      fetch(`${API_BASE}?type=mtproto`),
+      fetch(`${API_BASE}?type=socks`)
+    ]);
+    const mtData = await mtRes.json();
+    const socksData = await socksRes.json();
+    mtGrid.innerHTML=''; socksGrid.innerHTML='';
+    mtData.forEach(x=>mtGrid.appendChild(buildCard(x)));
+    socksData.forEach(x=>socksGrid.appendChild(buildCard(x)));
+  }catch(e){ alert('خطا در دریافت اطلاعات'); console.error(e); }
 }
 
-init();
+themeToggle.addEventListener('click',()=>{document.documentElement.classList.toggle('theme-dark');});
+refreshBtn.addEventListener('click', fetchProxies);
+
+fetchProxies();
 </script>
 </body>
 </html>
